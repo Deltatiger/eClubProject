@@ -90,8 +90,8 @@ class Session {
         } else {
             //We log the user in.
             global $db;
-            $usernameClean = strtolower(trim($username));
-            $passwordHash = sha1(trim($password));
+            $usernameClean = strtolower(trim($db->escapeString($username)));
+            $passwordHash = sha1(trim($db->escapeString($password)));
             $sql = "SELECT `user_id` FROM `{$db->name()}`.`{$db->table('user')}` WHERE LOWER(`user_name`) = '{$usernameClean}' AND `user_pass` = '{$passwordHash}'";
             $query = $db->query($sql);
             if (mysql_num_rows($query) > 0) {
@@ -101,10 +101,10 @@ class Session {
                 $sql = "UPDATE `{$db->name()}`.`{$db->table('session')}` SET `session_login_stat` = '1' , `session_user_id` = '{$result->user_id}' WHERE `session_id` = '{$_SESSION['session_id']}'";
                 $query = $db->query($sql);
                 $db->freeResults($query);
-                // Now we also have to update the basket from . TODO : This.
-                $this->uBasket->setBasketUser();
                 return true;
             } else {
+				//False credentials. Issue login failure error.
+				$db->freeResults($query);
                 return false;
             }
         }
@@ -162,20 +162,20 @@ class Session {
         global $db;
 		if(isset($_SESSION['session_id']))	{
 			//There is an active Session.
-			$sql = "SELECT COUNT(`session_user_id`) as user_count FROM `{$db->name()}`.`{$db->table('session')}` WHERE `session_id` = '{$_SESSION['session_id']}'";
+			$sql = "SELECT COUNT(`session_id`) as session_count FROM `{$db->name()}`.`{$db->table('session')}` WHERE `session_id` = '{$_SESSION['session_id']}'";
 			$query = $db->query($sql);
 			$result = $db->result($query);
-			if($result->user_count == 0)	{
+			if($result->session_count == 0)	{
 				$sql = "INSERT INTO `{$db->name()}`.`{$db->table('session')}` VALUES ('{$newSessionId}', NULL, '{$currentTime}', '{$currentTime}', '{$currentIp}', '{$currentBrowser}', '0')";
 			} else {
-				$sql = "UPDATE `{$db->name()}`.`{$db->table('session')}` SET `session_create_ip` = '{$currentIp}', `session_browser` = '{$currentBrowser}', `session_login_stat` ='0' , `session_user_id` = 'NULL', `session_create_time` = '{$currentTime}', `session_last_active` = '{$currentTime}' , `session_id` = '{$newSessionId}' WHERE `session_id` = '{$_SESSION['session_id']}'";
+				$sql = "UPDATE `{$db->name()}`.`{$db->table('session')}` SET `session_create_ip` = '{$currentIp}', `session_browser` = '{$currentBrowser}', `session_login_stat` ='0' , `session_user_id` = NULL, `session_create_time` = '{$currentTime}', `session_last_active` = '{$currentTime}' , `session_id` = '{$newSessionId}' WHERE `session_id` = '{$_SESSION['session_id']}'";
 			}
 			$db->query($sql);
 		} else {
 			$sql = "INSERT INTO `{$db->name()}`.`{$db->table('session')}` VALUES ('{$newSessionId}', NULL, '{$currentTime}', '{$currentTime}', '{$currentIp}', '{$currentBrowser}', '0')";
 			$db->query($sql);
 		}
-		
+		$_SESSION['session_id'] = $newSessionId;
     }
     
     public function getUserNameFromSession()    {

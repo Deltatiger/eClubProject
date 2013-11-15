@@ -11,9 +11,11 @@ class Template {
     private $pageName;
     private $pageTitle;
     private $templateVars;
+	private $rootPath;
     //This is the constructor of template class. Nothing much to do.
     function __construct() {
-        $pageName = '';
+		$this->rootPath = $_SERVER['DOCUMENT_ROOT'].'/eclub/game/eClubProject/';
+        $this->pageName = '';
     }
     //This function is used to set the page name.
     public function setPage($page)  {
@@ -58,10 +60,10 @@ class Template {
          * 3. Main Body
          * 4. Footer
          */
-        include 'templates/header.php';
+        include $this->rootPath.'templates/header.php';
         //include 'templates/navbar.php';
-        include 'templates/t_'.$this->pageName.'.php';
-        include 'templates/footer.html';
+        include $this->rootPath.'templates/t_'.$this->pageName.'.php';
+        include $this->rootPath.'templates/footer.html';
     }
     
     //This function is used to set the page title.

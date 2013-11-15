@@ -1,10 +1,10 @@
 eClub Project :
 
 DB Part :
-1. New database design.
+1. New database design. [DONE]
 
 PHP Part :
-1. Login / Session Part.
+1. Login / Session Part. [DONE]
 2. Actual Game Working (Game frontend).
 3. Game / DB interaction (Game backend).
 4. Overall integration and fixing.
