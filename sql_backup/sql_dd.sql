@@ -5,8 +5,7 @@ CREATE TABLE IF NOT EXISTS e_user  (
 	`user_name`         varchar(30),
 	`user_pass`         text,
 	`user_id`           int NULL AUTO_INCREMENT,
-	`user_dob`          DATE,
-	`user_email`        text NOT NULL,
+	`user_balance`		float,
 	PRIMARY KEY (`user_id`)
 );
 
@@ -39,9 +38,9 @@ CREATE TABLE IF NOT EXISTS e_inventory	(
 );
 
 /* Loan Table */
-CREATE TABLE IF NOT EXISTS e_load	(
+CREATE TABLE IF NOT EXISTS e_loan	(
 	user_id				int,
-	load_amount			float,
+	loan_amount			float,
 	PRIMARY KEY(`user_id`),
 	FOREIGN KEY (`user_id`) REFERENCES `e_user`(`user_id`)
 );
@@ -66,4 +65,17 @@ CREATE TABLE IF NOT EXISTS e_production	(
 	time_left			int,
 	FOREIGN KEY (`user_id`) REFERENCES `e_user`(`user_id`),
 	FOREIGN KEY (`item_id`) REFERENCES `e_item`(`item_id`)
+);
+
+/* Session Table */
+CREATE TABLE IF NOT EXISTS e_session   (
+	`session_id`            VARCHAR(60),
+	`session_user_id`       int,
+	`session_create_time`   int,
+	`session_last_active`   int,
+	`session_create_ip`     text,
+	`session_browser`       text,
+	`session_login_stat`    int DEFAULT 0,
+	PRIMARY KEY (`session_id`),
+	FOREIGN KEY (`session_user_id`) REFERENCES `eclub`.`e_user`(`user_id`)
 );

@@ -11,7 +11,6 @@ class Template {
     private $pageName;
     private $pageTitle;
     private $templateVars;
-    private $testVar;
     //This is the constructor of template class. Nothing much to do.
     function __construct() {
         $pageName = '';
@@ -60,7 +59,7 @@ class Template {
          * 4. Footer
          */
         include 'templates/header.php';
-        include 'templates/navbar.php';
+        //include 'templates/navbar.php';
         include 'templates/t_'.$this->pageName.'.php';
         include 'templates/footer.html';
     }

@@ -22,11 +22,11 @@ function registerUser($username, $password, $email)  {
      */
     $usernameClean = strtolower(trim($username));
     $emailClean = strtolower(trim($email));
-    $sql = "SELECT `user_name`, `user_email`, `user_id` FROM `{$db->name()}`.`dbms_user` WHERE LOWER(`user_name`) = '{$usernameClean}' || LOWER(`user_email`) = '{$emailClean}'";
+    $sql = "SELECT `user_name`, `user_email`, `user_id` FROM `{$db->name()}`.`{$db->table('user')}` WHERE LOWER(`user_name`) = '{$usernameClean}' || LOWER(`user_email`) = '{$emailClean}'";
     $query = $db->query($sql);
-    if (mysql_num_rows($query) > 1)     {
+    if ($db->numRows($query) > 1)     {
         //We already a row with this things.
-        mysql_free_result($query);
+        $db->freeResults($query);
         return false;
     } else {
         //We seem to be free of the user. We proceed to register him.
@@ -34,7 +34,7 @@ function registerUser($username, $password, $email)  {
         $emailClean = trim($email);
         //This is the crypt for hashing the password.
         $passwordHash = sha1($password);
-        $sql = "INSERT INTO `{$db->name()}`.`dbms_user`(`user_name`,`user_pass`,`user_email`) VALUES ('{$usernameClean}','{$passwordHash}','{$emailClean}')";
+        $sql = "INSERT INTO `{$db->name()}`.`{$db->table('user')}`(`user_name`,`user_pass`,`user_email`) VALUES ('{$usernameClean}','{$passwordHash}','{$emailClean}')";
         $query = $db->query($sql);
     }
     return true;

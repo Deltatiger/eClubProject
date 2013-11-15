@@ -14,8 +14,8 @@ class DB    {
             die('Could not Connect to the DataBase.');
         }
         
-        mysql_select_db('dbms_package', $this->con);
-        $this->dbName = 'dbms_package';
+        mysql_select_db('eclub', $this->con);
+        $this->dbName = 'eclub';
     }
     
     function __destruct()   {
@@ -27,7 +27,7 @@ class DB    {
     }
     
     public function freeResults($result)   {
-        if(is_a($result, 'mysqli_result'))  {
+        if(is_a($result, 'mysql_result'))  {
             mysql_free_result($result);
         }
     }
@@ -35,6 +35,30 @@ class DB    {
     public function name() {
         return $this->dbName;
     }
+	
+	public function table($name)	{
+		/*
+		 * This is used to return the Name of the actual name of the table given the table name
+		 */
+		switch($name)	{
+			case 'user':
+				return 'e_user';
+			case 'session':
+				return 'e_session';
+			case 'item':
+				return 'e_item';
+			case 'require':
+				return 'e_require';
+			case 'inventory':
+				return 'e_inventory';
+			case 'loan':
+				return 'e_loan';
+			case 'auction':
+				return 'e_auction';
+			case 'production':
+				return 'e_production';
+		}
+	}
     
     public function reconnect() {
         //This closes the current connection and reconnects. Avoiding Resource unavailable error for now.
@@ -43,7 +67,7 @@ class DB    {
         if(mysql_errno())  {
             die('Could not Connect to the DataBase.');
         }
-        mysql_select_db('dbms_package', $this->con);
+        mysql_select_db('e_club', $this->con);
     }
     
     public function result($query)  {
