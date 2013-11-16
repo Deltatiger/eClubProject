@@ -57,6 +57,8 @@ class DB    {
 				return 'e_auction';
 			case 'production':
 				return 'e_production';
+			case 'config':
+				return 'e_config';
 		}
 	}
     

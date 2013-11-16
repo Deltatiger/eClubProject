@@ -39,5 +39,5 @@ Required Pages :
 5. Admin Page
 	This page is used to for controlling the game play. This can do the following.
 		i.   Add credit to all the users.
-		ii.  Change the date of the game.
+		ii.  Change the date of the game. [DONE]
 		iii. Add Items [DONE]

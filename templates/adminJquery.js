@@ -20,4 +20,9 @@ $(document).ready(function()	{
 			});
 		}
 	});
+
+	$('#dayChangeForm').submit(function()	{
+		var conf = confirm("Confirm day change.");
+		return conf;
+	});
 });

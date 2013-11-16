@@ -86,3 +86,10 @@ CREATE TABLE IF NOT EXISTS e_config	(
 	`config_value`			TEXT,
 	PRIMARY KEY (`config_name`)
 );
+
+/* Transactions Table */
+CREATE TABLE IF NOT EXISTS e_transaction	(
+	`user_id`				int,
+	`transaction_amt`		float,
+	FOREIGN KEY(`user_id`) REFERENCES `e_user`(`user_id`)
+);
