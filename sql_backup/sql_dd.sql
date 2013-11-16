@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS e_auction	(
 	current_bidder		int,
 	buyout_price		float,
 	item_qty			int,
+	time_left			int,
 	FOREIGN KEY (`user_id`) REFERENCES `e_user`(`user_id`),
 	FOREIGN KEY (`current_bidder`) REFERENCES `e_user`(`user_id`),
 	FOREIGN KEY (`item_id`) REFERENCES `e_item`(`item_id`)

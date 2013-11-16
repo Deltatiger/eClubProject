@@ -47,7 +47,38 @@
 			$sql = "DELETE FROM `{$db->name()}`.`{$db->table('production')}` WHERE `time_left` = '0'";
 			$query = $db->query($sql);
 			
-			//Add the transactions to the respective users.
+			//Now we update all the Auctions.
+			$sql = "UPDATE `{$db->name()}`.`{$db->table('auction')}` SET `time_left` = `time_left` - 1 WHERE `time_left` != 0";
+			$query = $db->query($sql);
+			
+			//We process all the auctions which are having 0 time_left.
+			$sql = "SELECT * FROM `{$db->name()}`.`{$db->table('auction')}` WHERE `time_left` = '0'";
+			$query = $db->query($sql);
+			while($row = $db->result($query))	{
+				if($row->current_bidder == NULL)	{
+					//We have to remove the item from the auction and add it back to the users inventory.
+					$userId = $row->user_id;
+					$itemId = $row->item_id;
+					$itemQty = $row->item_qty;
+					addItemToInventory($userId, $itemId, $itemQty);
+				} else {
+					//We have a bidder. We have to add the item to the bidder.
+					$userId = $row->current_bidder;
+					$itemId = $row->item_id;
+					$itemQty = $row->item_qty;
+					addItemToInventory($userId, $itemId, $itemQty);
+					//Transfer the money to the user who sold the item.
+					$sellerId = $row->user_id;
+					$priceToTransfer = $row->current_bid;
+					$sql = "UPDATE `{$db->name()}`.`{$db->table('user')}` SET `user_balance` = `user_balance` + {$priceToTransfer} WHERE `user_id` = '{$sellerId}'";
+					$query = $db->query($sql);
+				}
+			}
+			
+			//Delete all the processed ones.
+			$sql = "DELETE FROM `{$db->name()}`.`{$db->table('auction')}` WHERE `time_left` = '0'";
+			$query = $db->query($sql);
+			
 			$template->setTemplateVar('message', 'Day Change Completed.');
 		}
 	}
