@@ -82,6 +82,19 @@ class Session {
         }
         return False;
     }
+	
+	public function isAdminUser()	{
+		if($this->isLoggedIn())	{
+			$username = $this->getUsernameFromSession();
+			if($username = 'eClubAdminUser')	{
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
     
     public function login($username, $password) {
         // This is used to check the login credentials.

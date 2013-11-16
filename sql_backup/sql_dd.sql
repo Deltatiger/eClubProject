@@ -79,3 +79,10 @@ CREATE TABLE IF NOT EXISTS e_session   (
 	PRIMARY KEY (`session_id`),
 	FOREIGN KEY (`session_user_id`) REFERENCES `eclub`.`e_user`(`user_id`)
 );
+
+/* Config Table */
+CREATE TABLE IF NOT EXISTS e_config	(
+	`config_name`			VARCHAR(60),
+	`config_value`			TEXT,
+	PRIMARY KEY (`config_name`)
+);

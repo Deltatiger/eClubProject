@@ -32,7 +32,7 @@ Required Pages :
 3. Buy Items Page
 	This shows all items that are up for sale with all the required details.
 
-4. Production Page
+4. Production Page [DONE]
 	This shows all the items that can be produced. Also shows all the items that are in the queue.
 	The game production usually takes a paticular number of days which are specified before game start.
 
@@ -40,3 +40,4 @@ Required Pages :
 	This page is used to for controlling the game play. This can do the following.
 		i.   Add credit to all the users.
 		ii.  Change the date of the game.
+		iii. Add Items [DONE]
