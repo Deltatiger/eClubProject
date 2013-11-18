@@ -62,36 +62,21 @@ class Template {
          * 3. Main Body
          * 4. Footer
          */
-		/*//Deciding which Ajax to use.
-		if(stripos($this->pageName, 'admin') == false)	{
-			$this->setTemplateVar('isadmin', 0);
-		} else {
-			$this->setTemplateVar('isadmin', 1);
-		}
-		
-        include $this->rootPath.'templates/header.php';
-		//Deciding which navigation Bar to use.
-        if(stripos($this->pageName, 'admin') == false)	{
-			include $this->rootPath.'templates/user_navbar.php';
-		} else {
-			include $this->rootPath.'templates/admin_navbar.php';
-		}
-		//The Actuall page
-        include $this->rootPath.'templates/t_'.$this->pageName.'.php';
-		//The footer.
-        include $this->rootPath.'templates/footer.html';
-		*/
 		//First we decide whether the page is an admin page or not.
+		global $session;
 		if(stripos($this->pageName, 'admin') === false)	{
 			$navBarType = 'user';
 			$this->setTemplateVar('isadmin', 0);
+			//We Load the data for the top fixed infobar.
+			$this->setTemplateVar('currentBalance', getCurrentBalance());
+			$this->setTemplateVar('prodQueueCount', getProdQueueCount());
+			$this->setTemplateVar('username', $session->getUserName());
 		} else {
 			$navBarType = 'admin';
 			$this->setTemplateVar('isadmin', 1);
 		}
 		
 		//Now we also have to note wheather the user is an admin user or not.
-		global $session;
 		$this->setTemplateVar('isAdminUser', ($session->isAdminUser() ? 1 : 0));
 		
 		//Now we load all the pages.

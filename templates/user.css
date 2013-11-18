@@ -1,0 +1,91 @@
+/* This is the CSS for regular users */
+
+/* BEGIN Login Page */
+#loginHolder	{
+	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 30px;
+}
+
+#loginHolder div	{
+	height: 20px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+#loginHolder .centerDiv	{
+	padding-left: 35px;
+	padding-top: 20px;
+	margin-bottom: 40px;
+}
+
+#loginHolder .message	{
+	padding-left: 35px;
+	font-style: italic;
+	font-weight: bolder;
+}		
+
+/* END Login Page */
+
+/* BEGIN Production Page */
+#production	{
+	padding: 20px;
+}
+
+#production .largeBoldFont	{
+	font-size: 20px;
+}
+
+.pendingProductions 	{
+	width: 400px;
+	text-align: center;
+}
+
+.pendingProductions th.name		{
+	width: 250px;
+}
+
+.pendingProductions td.name		{
+	width: 250px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.pendingProductions th.time		{
+	width: 150px;
+}
+
+.pendingProductions td.time		{
+	width: 150px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+
+.pendingProductions table 	{
+	margin-bottom: 30px;
+}
+
+#produceHolder	{
+	width: 600px;
+	margin: 0 auto;
+}
+
+#prodItemReqStat	{
+	width: 500px;
+	margin: 0 auto;
+}
+
+#prodItemReqStat td, #prodItemReqStat th	{
+	text-align: center;
+}
+
+#prodItemReqStat tr.item_red	{
+	background: #ff6375;
+}
+
+#prodItemReqStat tr.item_green	{
+	background: green;
+}
+/* END Production Page*/

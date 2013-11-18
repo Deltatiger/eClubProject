@@ -28,4 +28,43 @@ function addItemToInventory($userId, $itemId, $itemQty = 1)	{
 	$query = $db->query($sql);
 	return $query;
 }
+
+function getProdQueueCount($userId = NULL)	{
+	//Used to get the number of items in the production queue of `$userId`
+	global $db, $session;
+	if($userId == NULL)	{
+		if($session->isLoggedIn())	{
+			$userId = $session->getUserId();
+		} else {
+			return 0;
+		}
+	}
+	if($userId == 0)	{
+		return 0;
+	}
+	$sql = "SELECT COUNT(`item_id`) as prodQueueCount FROM `{$db->name()}`.`{$db->table('production')}` WHERE `user_id` = '{$userId}'";
+	$query = $db->query($sql);
+	$result = $db->result($query);
+	$db->freeResults($query);
+	return $result->prodQueueCount;
+}
+
+function getCurrentBalance($userId = NULL)	{
+	global $db, $session;
+	if($userId == NULL)	{
+		if($session->isLoggedIn())	{
+			$userId = $session->getUserId();
+		} else {
+			return 0;
+		}
+	}
+	if($userId == 0)	{
+		return 0;
+	}
+	$sql = "SELECT `user_balance` FROM `{$db->name()}`.`{$db->table('user')}` WHERE `user_id` = '{$userId}'";
+	$query = $db->query($sql);
+	$result = $db->result($query);
+	$db->freeResults($query);
+	return $result->user_balance;
+}
 ?>

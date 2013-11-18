@@ -10,11 +10,25 @@ and open the template in the editor.
 		<?php if($this->getVar('isadmin') == 0)	{ ?>
 			<script src="templates/jquery.min.js"></script>
 			<script src="templates/myJquery.js"></script>
+			<link rel="stylesheet" href="templates/common.css" />
+			<link rel="stylesheet" href="templates/user.css" />
+			<link rel='stylesheet' href="templates/fonts.css" type='text/css'>
 		<?php } else { ?>
 			<script src="../templates/jquery.min.js"></script>
 			<script src="../templates/adminJquery.js"></script>
+			<link rel="stylesheet" href="../templates/common.css" />
+			<link rel="stylesheet" href="../templates/admin.css" />
+			<link rel='stylesheet' href="../templates/fonts.css" type='text/css'>
 		<?php }	?>
-        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,400italic' type='text/css'>
     </head>
     <body>
-        <!-- The NavBar Starts Here. -->
+		<?php 
+		if($this->getVar('isadmin') == 0)	{ 
+			include $this->rootPath.'templates/infobar.php';
+		} 
+		?>
+		<div id="bodyWrapper">
+			<div id="headerBar">
+				Entrepreneurs Club
+			</div>
+			<!-- The NavBar Starts Here. -->

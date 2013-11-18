@@ -4,6 +4,8 @@
  * This is the main file that is included in all the Pages.
  */
     session_start();
+	//This includes all the constants 
+	include_once 'constants.php';
     //This holds all the general functions.
     include_once 'common_functions.php';
     //We invoke the DB first as we need it everywhere else.

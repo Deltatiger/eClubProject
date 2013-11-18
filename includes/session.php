@@ -154,7 +154,7 @@ class Session {
     public function getUserName()   {
         global $db;
         if ( isset($_SESSION['session_id']))    {
-            $sql = "SELECT `user_name` FROM `{$db->name()}`.`{$db->table('user')}` , `{$db->name()}`.`dbms_session` WHERE `{$db->table('user')}`.`user_id` = `{$db->table('session')}`.`session_user_id` AND `{$db->table('session')}`.`session_id` = '{$_SESSION['session_id']}' AND `{$db->table('session')}`.`session_login_stat` = '1'";
+            $sql = "SELECT `user_name` FROM `{$db->name()}`.`{$db->table('user')}` , `{$db->name()}`.`{$db->table('session')}` WHERE `{$db->table('user')}`.`user_id` = `{$db->table('session')}`.`session_user_id` AND `{$db->table('session')}`.`session_id` = '{$_SESSION['session_id']}' AND `{$db->table('session')}`.`session_login_stat` = '1'";
             $query = $db->query($sql);
             $result = $db->result($query);
             $db->freeResults($query);

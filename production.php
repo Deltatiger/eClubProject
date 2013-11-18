@@ -15,11 +15,16 @@
 	$currentUserId = $session->getUserId();
 	$sql = "SELECT `item_name`, `time_left` FROM `{$db->name()}`.`{$db->table('production')}`, `{$db->name()}`.`{$db->table('item')}` WHERE `{$db->table('production')}`.`item_id` = `{$db->table('item')}`.`item_id` AND `{$db->table('production')}`.`user_id` = '{$currentUserId}'";
 	$query = $db->query($sql);
-	$pendingProductions = '';
+	$pendingProductions = '<table class="type1">';
+	$pendingProductions .= '<tr> <th class="name"> Item Name </th> <th class="time"> Time Remaining </th> </tr>';
 	while($row = $db->result($query))	{
-		$pendingProductions = "{$row->item_name} still needs {$row->time_left} day(s).<br />";
+		$pendingProductions .= "<tr><td class=\"name\">{$row->item_name}</td><td class=\"time\">{$row->time_left} day(s)</td></tr>";
 	}
+	$pendingProductions .= '</table>';
 	$db->freeResults($query);
+	if(strlen($pendingProductions) == 86)	{
+		$pendingProductions = 'There are no items for Production.';
+	}
 	$template->setTemplateVar('pendingProds', $pendingProductions);
 	
 	//Now we show the items that can be produced in a single Drop down Box.

@@ -5,5 +5,6 @@
 		<li> <a href="adminAddUser.php"> Add User </a> </li>
 		<li> <a href="adminAddItem.php"> Add Item </a> </li>
 		<li> <a href="adminDayChange.php"> Change the Day </a> </li>
+		<li> <a href="../logout.php"> Logout </a> </li>
 	</ul>
 </div>
